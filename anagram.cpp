@@ -19,7 +19,7 @@ void procedure0(vector<string>& dictionnaire)
 		data_in.close();
 	}else
 	{
-		cout<<"ERROR"<<endl;
+		cout<<"data file ERROR"<<endl;
 	}	
 }
 
@@ -44,17 +44,41 @@ bool anagramme_check(string mot1, string mot2)
 
 void procedure1(vector<string>& dictionnaire)
 {
+	bool first_anagram_found=true;
+
+	int no_anagram=0;
+	int *n=&no_anagram;
+	
 	for(int i=0; i<dictionnaire.size(); i++)
 	{
-		cout<<"*"<<dictionnaire[i]<<endl; // A certain word is marked with *
+		
 		for(int j=i+1; j<dictionnaire.size(); j++)
 		{
 			if(anagramme_check(dictionnaire[i],dictionnaire[j])==true)
 			{
-				cout<<"-"<<dictionnaire[j]<<endl; // and its corresponding anagrams are marked with -
-			}
+				
+				if(first_anagram_found != true)
+				{
+					cout<<":"<<dictionnaire[j];
+				}else
+				{
+					cout<<"\n"<<dictionnaire[i]<<":"<<dictionnaire[j];
+				} 
+
+				first_anagram_found = false;
+			}	
+		}
+
+		if(first_anagram_found !=false) 
+		{
+			(*n)++;
+		}else
+		{
+			first_anagram_found=true;
 		}
 	}
+
+	cout<<"words without anagrams :"<<no_anagram<<endl;
 }
 
 int main()
